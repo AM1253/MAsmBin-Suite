@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <servlet>
+        <servlet-name>MIPSAssembler</servlet-name>
+        <servlet-class>Assembler.MIPSCodeControler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GTKWaveFiltersController</servlet-name>
+        <servlet-class>GTKWaveFilters.GTKWaveFiltersController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BinaryHandler</servlet-name>
+        <servlet-class>Handlers.BinaryHandler</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>MIPSAssembler</servlet-name>
+        <url-pattern>/assemble.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GTKWaveFiltersController</servlet-name>
+        <url-pattern>/gtkwave_filters.do</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>BinaryHandler</servlet-name>
+        <url-pattern>/BinaryHandler</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
+</web-app>
