@@ -40,7 +40,7 @@
         <div id="nav">
             <a href="index.jsp">
                 <h1>MAsmBin</h1>
-                <img id="logo" alt="masmbin logo" src="logo-small.png" />
+                <img id="logo" alt="masmbin logo" src="static/logo-small.png" />
             </a>
 
             <ul>

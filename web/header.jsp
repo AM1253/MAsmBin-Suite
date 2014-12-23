@@ -31,6 +31,9 @@
 -->
 <head>
         <title>MAsmBin</title>
+        <link rel="shortcut icon" href="static/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="static/favicon.ico" type="image/x-icon">
+        
         <meta charset="utf-8" />
         <link rel="stylesheet" href="codemirror-4.7/lib/codemirror.css" />
 

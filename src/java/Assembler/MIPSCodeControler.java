@@ -50,10 +50,11 @@ public class MIPSCodeControler extends HttpServlet {
                           HttpServletResponse response)
             throws ServletException, IOException {
         
-        String asm = request.getParameter("asm_code");
+        String asm_code = request.getParameter("asm_code");
+        System.out.println(asm_code);
+        MIPSAssembler mips_code = new MIPSAssembler(asm_code);
         
-        MIPSAssembler mips_code = new MIPSAssembler(asm);
-        
+        List<String> asm = mips_code.getAssembly();
         List<String> bin = mips_code.getBinary();
         
         request.setAttribute("asm", asm);

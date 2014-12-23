@@ -33,16 +33,16 @@
  THE SOFTWARE.
 -->
 <html>
-    
+
     <!--head>
     <%@ include file="header.jsp" %>
     </head-->
-    
+
     <body>
         <div id="nav">
             <a href="index.jsp">
                 <h1>MAsmBin</h1>
-                <img id="logo" alt="masmbin logo" src="logo-small.png" />
+                <img id="logo" alt="masmbin logo" src="static/logo-small.png" />
             </a>
 
             <ul>
@@ -67,27 +67,27 @@
 
                 <form method="post" action="assemble.do">
                     <textarea id="code" name="asm_code"><%
-                        String asm = (String) request.getAttribute("asm");
-                        if (asm == null) {
-                            asm = "";
-                        }
-                        out.print(asm);
-                        %></textarea>
-                    <br />
+                        List<String> asm = (List<String>) request.getAttribute("asm");
+                        %><c:if test="${asm != null}"><%
+                                for (String line : asm) {
+                                    out.print(line + "\n");
+                                }
+                            %></c:if></textarea>
+                        <br />
 
-                    <div style="position: relative; margin: 1em 0;">
-                        <button type="submit" class="btn bigbutton left">Convert</button>
-                    </div>
-                </form>
-                <script>
-                    var asm_editor = CodeMirror.fromTextArea(document.getElementById("code"), {
-                        mode: "application/xml",
-                        styleActiveLine: true,
-                        lineNumbers: true,
-                        lineWrapping: true
-                    });
-                </script>
-            </section>
+                        <div style="position: relative; margin: 1em 0;">
+                            <button type="submit" class="btn bigbutton left">Convert</button>
+                        </div>
+                    </form>
+                    <script>
+                        var asm_editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+                            mode: "application/xml",
+                            styleActiveLine: true,
+                            lineNumbers: true,
+                            lineWrapping: true
+                        });
+                    </script>
+                </section>
 
             <c:if test="${bin != null}">
                 <section>

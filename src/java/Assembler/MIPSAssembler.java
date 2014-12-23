@@ -30,6 +30,8 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,27 +42,27 @@ import java.util.logging.Logger;
  */
 public class MIPSAssembler {
 
-    private String assembly;
+    private List<String> assembly;
     private List<String> binary;
 
     public MIPSAssembler()
     {
-        this.assembly = "";
+        this.assembly = null;
         this.binary =null;
     }
     
     public MIPSAssembler(String asm) throws IOException
     {
-        this.assembly = asm;
-        this.binary = this.asm_to_bin();
+        this.assembly = this.str_to_list(asm);
+        this.binary = this.asm_to_bin(this.assembly);
     }
     
     public void setAssembly(String asm)
     {
-        this.assembly = asm;
+        this.assembly = this.str_to_list(asm);
     }
     
-    public String getAssembly()
+    public List<String> getAssembly()
     {
         return this.assembly;
     }
@@ -70,9 +72,29 @@ public class MIPSAssembler {
         return this.binary;
     }
     
-    private List<String> asm_to_bin() throws IOException
+    private List<String> str_to_list(String in)
     {
-        String result;
+        List<String> out = new ArrayList<>();
+        
+        String[] temp = in.split("\n");
+        out.addAll(Arrays.asList(temp));
+        
+        return out;
+    }
+    
+    private List<String> asm_to_bin(List<String> asm) throws IOException
+    {
+        /*=============   Prepare input for the core program   ===============*/
+        
+        String path = "/home/gon1332/Development/Repositories/MAsmBin Suite/src/java/Assembler/";
+        String filename = "in.masm";
+        
+        Files.write(Paths.get(path, filename), asm, Charset.defaultCharset());
+
+        
+        
+        /*==================   Execute the core program   ====================*/
+        
         StringBuilder output = new StringBuilder();
         Process p;
         
@@ -81,9 +103,11 @@ public class MIPSAssembler {
                              "-c",
                              "cd ~/Development/Repositories/MAsmBin\\ Suite/" +
                              "src/java/Assembler/;" +
-                             "./masmbin program.masm out.mbin;" };
+                             "./masmbin in.masm out.mbin;" };
             p = Runtime.getRuntime().exec(cmd);
             p.waitFor();
+            
+            /* [DEBUG] Read the output of the core execution in the terminal */
             BufferedReader reader = 
                 new BufferedReader(new InputStreamReader(p.getInputStream()));
             
@@ -94,18 +118,21 @@ public class MIPSAssembler {
         } catch (IOException | InterruptedException ex) {
             Logger.getLogger(MIPSAssembler.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        /* [DEBUG] Print the output of core to the Java terminal   ---------- */
         System.out.println(output.toString());
       
         
-        //java.nio.file.Path path = Paths.get("/home/gon1332/Development/" + 
-        //            "Repositories/MAsmBin\\ Suite/src/java/Assembler/out.mbin");
-        String path = "/home/gon1332/Development/Repositories/MAsmBin Suite/src/java/Assembler/";
-        String filename = "out.mbin";
         
+        /*======================   Extract the output   ======================*/
+        
+        path = "/home/gon1332/Development/Repositories/MAsmBin Suite/src/java/Assembler/";
+        filename = "out.mbin";
+        
+        /* Transfer the file in memory line by line. */
         List<String> lines;
         lines = Files.readAllLines(Paths.get(path, filename), Charset.defaultCharset());
         
-        //result = "ASM converted to BINARY!\n" + this.getAssembly();
         return lines;
     }
 }
