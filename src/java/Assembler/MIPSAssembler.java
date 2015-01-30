@@ -29,7 +29,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +42,8 @@ import java.util.logging.Logger;
 public class MIPSAssembler {
 
     private List<String> assembly;
-    private List<String> binary;
+    final private List<String> binary;
+    private String appPath;
 
     public MIPSAssembler()
     {
@@ -86,7 +86,8 @@ public class MIPSAssembler {
     {
         /*=============   Prepare input for the core program   ===============*/
         
-        String path = "/home/gon1332/Development/Repositories/MAsmBin Suite/src/java/Assembler/";
+        //String path = "/home/gon1332/Development/Repositories/MAsmBin Suite/src/java/Assembler/";
+        String path = "/opt/tomcat/webapps/MAsmBin_Suite/WEB-INF/classes/Assembler/";
         String filename = "in.masm";
         
         Files.write(Paths.get(path, filename), asm, Charset.defaultCharset());
@@ -101,8 +102,9 @@ public class MIPSAssembler {
         try {
             String[] cmd = { "/bin/sh",
                              "-c",
-                             "cd ~/Development/Repositories/MAsmBin\\ Suite/" +
-                             "src/java/Assembler/;" +
+                             "cd /opt/tomcat/webapps/MAsmBin_Suite/WEB-INF/classes/Assembler/;" +
+                             //"cd ~/Development/Repositories/MAsmBin\\ Suite/" +
+                             //"src/java/Assembler/;" +
                              "./masmbin in.masm out.mbin;" };
             p = Runtime.getRuntime().exec(cmd);
             p.waitFor();
@@ -111,27 +113,33 @@ public class MIPSAssembler {
             BufferedReader reader = 
                 new BufferedReader(new InputStreamReader(p.getInputStream()));
             
-            String line = "";			
-            while ((line = reader.readLine())!= null) {
+            String line;
+            while ((line = reader.readLine()) != null) {
                     output.append(line).append("\n");
             }
-        } catch (IOException | InterruptedException ex) {
+        } catch (IOException ex) {
+            Logger.getLogger(MIPSAssembler.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
             Logger.getLogger(MIPSAssembler.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         /* [DEBUG] Print the output of core to the Java terminal   ---------- */
-        System.out.println(output.toString());
+        System.out.println("[DEBUG 2]:\n" + output.toString() + "\n");
       
         
         
         /*======================   Extract the output   ======================*/
         
-        path = "/home/gon1332/Development/Repositories/MAsmBin Suite/src/java/Assembler/";
+        //path = "/home/gon1332/Development/Repositories/MAsmBin Suite/src/java/Assembler/";
+        path = "/opt/tomcat/webapps/MAsmBin_Suite/WEB-INF/classes/Assembler/";
         filename = "out.mbin";
         
         /* Transfer the file in memory line by line. */
         List<String> lines;
         lines = Files.readAllLines(Paths.get(path, filename), Charset.defaultCharset());
+        
+        /* [DEBUG] Print the output of core to the Java terminal   ---------- */
+        System.out.println("[DEBUG 3]:\n" + lines + "\n");
         
         return lines;
     }
