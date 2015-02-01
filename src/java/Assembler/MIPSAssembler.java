@@ -87,7 +87,8 @@ public class MIPSAssembler {
         /*=============   Prepare input for the core program   ===============*/
         
         //String path = "/home/gon1332/Development/Repositories/MAsmBin Suite/src/java/Assembler/";
-        String path = "/opt/tomcat/webapps/MAsmBin_Suite/WEB-INF/classes/Assembler/";
+        String path = "/home/user/MAsmBin_vital_area/";
+        //String path = "/opt/tomcat/webapps/MAsmBin_Suite/WEB-INF/classes/Assembler/";
         String filename = "in.masm";
         
         Files.write(Paths.get(path, filename), asm, Charset.defaultCharset());
@@ -102,7 +103,8 @@ public class MIPSAssembler {
         try {
             String[] cmd = { "/bin/sh",
                              "-c",
-                             "cd /opt/tomcat/webapps/MAsmBin_Suite/WEB-INF/classes/Assembler/;" +
+                             //"cd /opt/tomcat/webapps/MAsmBin_Suite/WEB-INF/classes/Assembler/;" +
+                             "cd /home/user/MAsmBin_vital_area/;" +
                              //"cd ~/Development/Repositories/MAsmBin\\ Suite/" +
                              //"src/java/Assembler/;" +
                              "./masmbin in.masm out.mbin;" };
@@ -117,9 +119,7 @@ public class MIPSAssembler {
             while ((line = reader.readLine()) != null) {
                     output.append(line).append("\n");
             }
-        } catch (IOException ex) {
-            Logger.getLogger(MIPSAssembler.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (InterruptedException ex) {
+        } catch (IOException | InterruptedException ex) {
             Logger.getLogger(MIPSAssembler.class.getName()).log(Level.SEVERE, null, ex);
         }
         
@@ -131,7 +131,8 @@ public class MIPSAssembler {
         /*======================   Extract the output   ======================*/
         
         //path = "/home/gon1332/Development/Repositories/MAsmBin Suite/src/java/Assembler/";
-        path = "/opt/tomcat/webapps/MAsmBin_Suite/WEB-INF/classes/Assembler/";
+        path = "/home/user/MAsmBin_vital_area/";
+        //path = "/opt/tomcat/webapps/MAsmBin_Suite/WEB-INF/classes/Assembler/";
         filename = "out.mbin";
         
         /* Transfer the file in memory line by line. */
@@ -140,7 +141,7 @@ public class MIPSAssembler {
         
         /* [DEBUG] Print the output of core to the Java terminal   ---------- */
         System.out.println("[DEBUG 3]:\n" + lines + "\n");
-        
+
         return lines;
     }
 }
