@@ -1,0 +1,112 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<title>Icarus Verilog</title>
+	<link rel="stylesheet" type="text/css" href="guide.css">
+	<link rel="stylesheet" href="highlighter/sunburst.css" />
+</head>
+
+<body>
+
+	<script src="highlighter/prettify.js"></script>
+
+	<table class="navtable">
+	<tr>
+		<td align="left"><a href="index.html">&lt;&lt;&nbsp;Previous</a></td>
+		<td align="center"><a href="index.html">Icarus Verilog & GTKWave User Guide</a></td>
+		<td align="right"><a href="theory.html">Next&nbsp;&gt;&gt;</a></td>
+	</tr>
+	</table>
+	<br/>
+
+
+	<h2 class="sect1title"><a name="iverilog">2. Icarus Verilog</a></h2><hr class="mainsecthr"/>
+
+        <p> Icarus Verilog is a free Verilog simulation and synthesis tool. It
+compiles source code written in Verilog (IEEE-1364) into some target format. It
+also generates netlists for the synthesis part. It's by far the best free tool
+and many people work on that making it more and more complete day by day.
+Well, because I use Linux (which doesn't mean anything
+for the concept of the guide), I'll show you everything with commands for such OS's.
+For Windows and MacOS users the way of installation is different.
+        </p>
+
+	<h3 class="sect2title"><a name="install">2.1. Installation</a></h3>
+
+        <p> Open a terminal and type (or copy-paste) the below commands.<br />
+Firstly, add a new ppa:
+
+<pre class="screen">
+ $ sudo add-apt-repository ppa:team-electronics/ppa
+</pre>
+
+Then, update the local repository cache:
+
+<pre class="screen">
+ $ sudo apt-get update
+</pre>
+
+Finally, install (update) the Icarus Verilog package
+
+<pre class="screen">
+ $ sudo apt-get install iverilog
+</pre>
+        </p>
+
+	<h3 class="sect2title"><a name="usage">2.2. Usage</a></h3>
+
+
+        <p> Let's say you have the source files one.v and two.v to compile. A
+quick way to compile them is just by typing:
+<pre class="screen">
+ $ iverilog one.v two.v
+</pre>
+
+In that way, a.out is created and that's our binary:
+<pre class="screen">
+ $ ls
+ $ a.out one.v two.v
+</pre>
+
+Now we can execute a.out with <b>vvp</b> command:
+<pre class="screen">
+ $ vvp a.out
+</pre>
+
+
+If you want to specify another name for the binary, you can use the <b>-o</b> option just like in <b>gcc</b>:
+<pre class="screen">
+ $ iverilog ­o my_out.out one.v two.v
+ $ ls
+ $ one.v two.v my_out.v
+</pre>
+
+Well, all these are ok, but if you want to write on big, or complex verilog code, you should also use
+during the compilation the <b>-Wall</b> option:
+<pre class="screen">
+ $ iverilog ­Wall ­o my_out.out one.v two.v
+</pre>
+­<b>Wall</b> option works in the same logic as in gcc. It enables more warnings during the compilation,
+that can help you find that little thing that destroys the functionality of your hardware. And yes,
+warnings in our case can affect the functionality of our design more often than programming in C.
+So <b>-Wall</b> is a must. You should also consider on <b>-Winfloop</b>. You can imagine its usage.
+Well, that's all from me about Icarus Verilog. If you want to learn more about it, you should visit it's
+<a href=http://iverilog.icarus.com/>official website</a> and for further How To's and support its <a href=http://iverilog.wikia.com/wiki/Main_Page>official wiki</a>.
+I also recommend you to subscribe to the <a href=https://lists.sourceforge.net/lists/listinfo/iverilog-devel>mailing list</a>.
+
+        </p>
+
+
+	<script>prettyPrint();</script>
+
+	<table width="100%" border="0" cellspacing="0" cellpadding="0" class="navtable">
+	<tr>
+		<td align="left"><a href="index.html">&lt;&lt;&nbsp;Next</a></td>
+		<td align="center"><a href="index.html">Icarus Verilog & GTKWave User Guide</a></td>
+		<td align="right"><a href="theory.html">Previous&nbsp;&gt;&gt;</a></td>
+	</tr>
+	</table>
+
+</body>
+</html>
+

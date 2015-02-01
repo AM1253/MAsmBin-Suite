@@ -44,8 +44,8 @@
             </a>
 
             <ul>
-                <li><a class="active" data-default="true" href="codemirror-4.7/index.html">Home</a></li>
-                <li><a href="codemirror-4.7/doc/manual.html">Manual</a></li>
+                <li><a class="active" data-default="true" href="index.jsp">Home</a></li>
+                <li><a href="manual/index.html">Manual</a></li>
                 <li><a href="https://github.com/AM1253/MAsmBin-Suite">Code</a></li>
             </ul>
             <ul>

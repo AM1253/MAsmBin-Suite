@@ -12,6 +12,10 @@
         <servlet-name>BinaryHandler</servlet-name>
         <servlet-class>Handlers.BinaryHandler</servlet-class>
     </servlet>
+    <filter>
+        <filter-name>HitCounter</filter-name>
+        <filter-class>Filters.HitCounter</filter-class>
+    </filter>
     <servlet-mapping>
         <servlet-name>MIPSAssembler</servlet-name>
         <url-pattern>/assemble.do</url-pattern>
@@ -24,6 +28,10 @@
         <servlet-name>BinaryHandler</servlet-name>
         <url-pattern>/BinaryHandler</url-pattern>
     </servlet-mapping>
+    <filter-mapping>
+        <filter-name>HitCounter</filter-name>
+        <url-pattern>/index.jsp</url-pattern>
+    </filter-mapping>
     <session-config>
         <session-timeout>
             30
